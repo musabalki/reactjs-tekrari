@@ -40,22 +40,30 @@ class App extends React.Component {
               "overview": "When a mafia accountant is taken hostage on his beat, a police officer – wracked by guilt from a prior stint as a negotiator – must negotiate the standoff, even as his own family is held captive by the mob.",
               "id": 13
             }
-          ]
+          ],
+          searchQuery:""
     };
     deleteMovie = (movie)=>{
       const newMovieList=this.state.movies.filter(m=>m.id!==movie.id);
       //this.setState({movies:newMovieList})
       this.setState(state=>({movies:newMovieList}))
     }
+    searchMovie=(event)=>{
+      this.setState({searchQuery:event.target.value}) 
+    }
    render (){
-       return (
+     let filteredMovies=this.state.movies.filter((movie)=>{return movie.name.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1 });
+     // 2.yol movie.name.toLowerCase().includes(this.state.searchQuery.toLowerCase())  
+     return (
            <div className="container">
                <div className="row">
                     <div className="col-lg-12">
-                        <SearchBar/>
+                        <SearchBar searchMovieProp={this.searchMovie}/>
                     </div>
                </div>
-               <MovieList movies={this.state.movies} deleteMovieProps={this.deleteMovie}/>
+               {
+                 (filteredMovies.length > 0) ? <MovieList movies={filteredMovies}  deleteMovieProps={this.deleteMovie}/> : <h3 className="alert alert-danger">Bulunamadı</h3>
+               }
            </div>
        )
    }
