@@ -1,26 +1,40 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import MovieList from "./MovieList";
+import axios from "axios";
 
 class App extends React.Component {
     state={
         movies:[],
         searchQuery:""
     };
-    deleteMovie = (movie)=>{
+    /*deleteMovie = (movie)=>{
       const newMovieList=this.state.movies.filter(m=>m.id!==movie.id);
-      //this.setState({movies:newMovieList})
+      this.setState(state=>({movies:newMovieList}))
+    }*/
+   
+    deleteMovie = (movie)=>{
+      const baseURL=`http://localhost:3002/movies/${movie.id}`;
+      axios.delete(baseURL);
+      const newMovieList=this.state.movies.filter(m=>m.id!==movie.id);
       this.setState(state=>({movies:newMovieList}))
     }
     searchMovie=(event)=>{
       this.setState({searchQuery:event.target.value}) 
     }
-    async componentDidMount(){
+    /*async componentDidMount(){
       const baseURL="http://localhost:3002/movies";
       const response= await fetch(baseURL);
       const data=await response.json();
       console.log(data);
       this.setState({movies:data})
+    }*/
+    componentDidMount(){
+      const baseURL="http://localhost:3002/movies";
+      const response= axios.get(baseURL).then((res)=>this.setState({movies:res.data}));
+     
+   
+      //this.setState({movies:data})
     }
    render (){
      let filteredMovies=this.state.movies.filter((movie)=>{return movie.name.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1 });
