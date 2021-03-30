@@ -1,25 +1,31 @@
 import React from "react";
 
 class AddMovie extends React.Component {
-
+    handleFormSubmit=(e)=>{
+        e.preventDefault();
+        console.log("aaa");
+    }
     render() {
         return (
             <div className="row">
-                <div>
-                    Add Movie
-                </div>
-                <div className="col-lg-6 mb-2">
-                    <input type="text" placeholder="Name" className="form-control" />
-                </div>
-                <div className="col-lg-6 mb-2">
-                    <input type="text" placeholder="Rating" className="form-control" />
-                </div>
-                <div className="col-lg-6 mb-2">
-                    <input type="text" placeholder="Image URL" className="form-control" />
-                </div>
-                <div className="col-lg-6 mb-2">
-                    <input type="text" placeholder="Overview" className="form-control" />
-                </div>
+                <form onSubmit={this.handleFormSubmit}>
+                    <div>
+                        Add Movie
+                    </div>
+                    <div className="col-lg-6 mb-2">
+                        <input type="text" name="name" placeholder="Name" className="form-control" />
+                    </div>
+                    <div className="col-lg-6 mb-2">
+                        <input type="text" name="rating" placeholder="Rating" className="form-control" />
+                    </div>
+                    <div className="col-lg-6 mb-2">
+                        <input type="text" name="imageURL" placeholder="Image URL" className="form-control" />
+                    </div>
+                    <div className="col-lg-6 mb-2">
+                        <input type="text" name="overview" placeholder="Overview" className="form-control" />
+                    </div>
+                    <input className="btn btn-danger" type="submit" defaultValue="Gönder" />
+                </form>
             </div>
         )
     }
