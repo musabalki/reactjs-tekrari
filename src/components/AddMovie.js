@@ -1,9 +1,12 @@
 import React from "react";
+import serialize from "form-serialize"
 
 class AddMovie extends React.Component {
     handleFormSubmit=(e)=>{
         e.preventDefault();
-        console.log("aaa");
+       
+        const newMoviee=serialize(e.target.value,{hash:true});
+        console.log(newMoviee);
     }
     render() {
         return (
